@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > UserController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.SpringSecurity.SpringSecurity.Controller</a>
+</div>
+
+<h1>Coverage Summary for Class: UserController (com.SpringSecurity.SpringSecurity.Controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (2/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.SpringSecurity.SpringSecurity.Controller;
+&nbsp;
+&nbsp;import com.SpringSecurity.SpringSecurity.Entity.UserEntity;
+&nbsp;import com.SpringSecurity.SpringSecurity.service.UserEntryService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.security.core.Authentication;
+&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+&nbsp;import org.springframework.web.bind.annotation.PutMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/user&quot;)
+&nbsp;public class UserController {
+&nbsp;
+&nbsp;    private final UserEntryService userEntryService;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public UserController(UserEntryService userEntryService) {</b>
+<b class="fc">&nbsp;        this.userEntryService = userEntryService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping
+&nbsp;    private ResponseEntity&lt;?&gt; updateUser(@RequestBody UserEntity userEntity) {
+<b class="nc">&nbsp;        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</b>
+<b class="nc">&nbsp;        String username = authentication.getName();</b>
+<b class="nc">&nbsp;        UserEntity userInDb = userEntryService.findByUserName(username);</b>
+<b class="nc">&nbsp;        if (userInDb != null) {</b>
+<b class="nc">&nbsp;            userInDb.setUsername(userEntity.getUsername());</b>
+<b class="nc">&nbsp;            userInDb.setPassword(userEntity.getPassword());</b>
+<b class="nc">&nbsp;            userEntryService.saveNewEntry(userInDb);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-06-10 08:26</div>
+</div>
+</body>
+</html>
