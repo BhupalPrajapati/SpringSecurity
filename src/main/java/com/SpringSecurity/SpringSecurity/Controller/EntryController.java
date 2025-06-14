@@ -4,6 +4,8 @@ import com.SpringSecurity.SpringSecurity.Entity.JournalEntity;
 import com.SpringSecurity.SpringSecurity.Entity.UserEntity;
 import com.SpringSecurity.SpringSecurity.service.JournalEntryService;
 import com.SpringSecurity.SpringSecurity.service.UserEntryService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +20,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/journal")
-public class    EntryControler {
+public class EntryController {
 
     @Autowired
     private JournalEntryService journalEntryService;
 
     @Autowired
     private UserEntryService userEntryService;
+
+    private final static Logger logger = LogManager.getLogger(EntryController.class);
 
     // Get all journal entries
     @GetMapping
@@ -50,7 +54,8 @@ public class    EntryControler {
             return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
         } catch (Exception e) {
             // Log the error (use a logger in real-world apps)
-            System.err.println("Error creating journal entry: " + e.getMessage());
+            logger.error("Error creating journal entry:", e);
+            //System.err.println("Error creating journal entry: " + e.getMessage());
             return new ResponseEntity<>("Failed to create journal entry", HttpStatus.BAD_REQUEST);
         }
     }

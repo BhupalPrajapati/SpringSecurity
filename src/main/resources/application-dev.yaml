@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: SpringSecurity
+
+  data:
+    mongodb:
+      uri: mongodb+srv://bhupalprajapati:Prajapati@cluster0.wajlmyk.mongodb.net/JournalDB?retryWrites=true&w=majority&appName=Cluster0
+      auto-index-creation: true
+      ssl:
+        enabled: true
+
+  spring-boot:
+    run:
+      jvmArguments: "-Dhttps.protocols=TLSv1.2"

@@ -1,8 +1,11 @@
 package com.SpringSecurity.SpringSecurity.service;
 
+import com.SpringSecurity.SpringSecurity.Controller.EntryController;
 import com.SpringSecurity.SpringSecurity.Entity.JournalEntity;
 import com.SpringSecurity.SpringSecurity.Entity.UserEntity;
 import com.SpringSecurity.SpringSecurity.JournalEntryRepository.JournalRepo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,7 @@ public class JournalEntryService {
     @Autowired
     private UserEntryService userEntryService;
 
-
+    private final static Logger logger = LogManager.getLogger(JournalEntryService.class);
     // Save a journal entry
     @Transactional
     public void save(JournalEntity journalEntity, String username) {
@@ -31,7 +34,7 @@ public class JournalEntryService {
             user.getJournalEntities().add(saved);
             userEntryService.saveUser(user);
         } catch (Exception e) {
-            System.out.println(e);
+            logger.error(e);
         }
     }
 
@@ -62,7 +65,7 @@ public class JournalEntryService {
                 journalRepo.deleteById(id);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            logger.error(e);
             throw new RuntimeException("An error during the deletion!", e);
         }
         return removed;
