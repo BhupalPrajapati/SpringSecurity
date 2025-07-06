@@ -1,0 +1,35 @@
+<configuration>
+    <!-- Console Logging -->
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    // rotation based
+    <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>JournalEntity.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- file name pattern -->
+            <fileNamePattern>logs/application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- max file size before rollover -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- keep 30 days' worth of logs -->
+            <maxHistory>30</maxHistory>
+            <!-- total size cap -->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ConsoleAppender"/>
+        <appender-ref ref="FileAppender"/>
+    </root>
+</configuration>
