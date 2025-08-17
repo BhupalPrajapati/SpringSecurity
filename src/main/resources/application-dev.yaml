@@ -8,6 +8,20 @@ spring:
       auto-index-creation: true
       ssl:
         enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bhupalt001@gmail.com
+    password: "omkg cwck ujnx uirc"
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
 
   spring-boot:
     run:
